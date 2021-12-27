@@ -1,23 +1,14 @@
 package com.company;
 
-public class Player {
-    private int x = 0;
-    private int y = Game.fieldAmount-1;
-    private PlayerPanel ui;
-
+public class Player extends Actor{
     public Player(){
+        super(Game.fieldAmount-1, 0);
         this.ui = new PlayerPanel();
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public PlayerPanel getUi(){
-        return this.ui;
+    public void reset(){
+        this.x = Game.fieldAmount-1;
+        this.y = 0;
+        this.direction = null;
     }
 }

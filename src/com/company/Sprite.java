@@ -3,10 +3,19 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Sprite extends JPanel {
+public class Sprite extends JPanel {
     protected String assetPath;
     public Sprite(String assetPath){
         this.assetPath = assetPath;
+        initGraphics();
     }
-    public abstract void draw(Graphics g);
+    public Sprite(){
+        initGraphics();
+    }
+
+    private void initGraphics(){
+        this.setLayout(new FlowLayout());
+        this.setPreferredSize(new Dimension(FieldPanel.squareW, FieldPanel.squareH));
+        this.setOpaque(false);
+    }
 }

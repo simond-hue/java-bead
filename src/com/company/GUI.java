@@ -27,4 +27,12 @@ public class GUI {
     public void empty(){
         this.mainWindow.getContentPane().removeAll();
     }
+
+    public void setMovementListener(MovementActionListener x){
+        this.mainWindow.addKeyListener(x);
+    }
+
+    public void showMessage(String string){
+        JOptionPane.showMessageDialog(this.mainWindow, string);
+    }
 }

@@ -10,29 +10,30 @@ import java.io.IOException;
 public class FieldPanel extends JPanel {
     public static int squareW = 25;
     public static int squareH = 25;
+    private BufferedImage img;
 
     private String assetPath;
     public FieldPanel(FieldType type){
         super();
         this.assetPath = type.path;
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(FieldPanel.squareW, FieldPanel.squareH));
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        BufferedImage img = null;
+        this.setBackground(new Color(0,0,0,255));
         try{
-            img = ImageIO.read(new File(this.assetPath));
+            this.img = ImageIO.read(new File(this.assetPath));
         }
         catch (IOException e){
             e.printStackTrace();
         }
-        g.drawImage(img, 0, 0, null);
-        System.out.print(getComponents().length);
-        for(Component sprite : this.getComponents()){
-            ((Sprite)sprite).draw(g);
-        }
+    }
+
+    public void reset(){
+        this.setBackground(new Color(0,0,0,255));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        g.drawImage(this.img, 0, 0, this);
+        super.paintComponent(g);
     }
 }
