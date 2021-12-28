@@ -11,6 +11,9 @@ public class GameEngine {
         this.game = new Game(this.gui);
     }
 
+    /**
+     * Starts a new Game
+     */
     public void startNewGame(){
         this.gui.empty();
         this.game = new Game(this.gui);

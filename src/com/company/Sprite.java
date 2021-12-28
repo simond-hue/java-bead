@@ -13,6 +13,9 @@ public class Sprite extends JPanel {
         initGraphics();
     }
 
+    /**
+     * Initializes the basic Sprite qualities
+     */
     private void initGraphics(){
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(FieldPanel.squareW, FieldPanel.squareH));

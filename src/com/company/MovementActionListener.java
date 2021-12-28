@@ -21,6 +21,10 @@ public class MovementActionListener implements KeyListener, ActionListener{
     @Override
     public void keyTyped(KeyEvent e) { }
 
+    /**
+     * Sets the player direction based on the last key pressed
+     * @param e event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         this.pressed = e.getKeyCode();
@@ -65,6 +69,10 @@ public class MovementActionListener implements KeyListener, ActionListener{
     @Override
     public void keyReleased(KeyEvent e) { }
 
+    /**
+     * Moves the player based on the destination
+     * @param e event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(this.paused && this.game.isGameOver()){ return; }

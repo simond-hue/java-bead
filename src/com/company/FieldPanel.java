@@ -27,8 +27,11 @@ public class FieldPanel extends JPanel {
         }
     }
 
+    /**
+     * Resets the opacity of the field to the default value
+     */
     public void reset(){
-        this.setBackground(new Color(0,0,0,255));
+        this.setBackground(new Color(0,0,0,Game.fieldOpacity));
     }
 
     @Override

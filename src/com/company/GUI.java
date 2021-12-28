@@ -5,11 +5,13 @@ import javax.swing.*;
 public class GUI {
     private JFrame mainWindow;
     private TopMenuBar topMenuBar;
+    private NewEntryFrame newEntryWindow;
     public GUI(){
         this.mainWindow = new JFrame("Labyrinth");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setResizable(false);
         this.generateMenu();
+        this.mainWindow.pack();
         mainWindow.setVisible(true);
     }
 
@@ -32,7 +34,8 @@ public class GUI {
         this.mainWindow.addKeyListener(x);
     }
 
-    public void showMessage(String string){
+    public void openInsertWindow(String string){
         JOptionPane.showMessageDialog(this.mainWindow, string);
+        this.newEntryWindow = new NewEntryFrame();
     }
 }

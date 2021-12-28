@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Actor {
@@ -26,7 +25,12 @@ public class Actor {
     public Sprite getUi(){
         return this.ui;
     }
+    /**
+     * @param destination
+     * Moves the Actor to the destination Field
+     */
     public void move(Field destination) {
+        if(!destination.isEmptyField()) return;
         this.x = destination.getX();
         this.y = destination.getY();
         Container parent = this.ui.getParent();
@@ -43,6 +47,11 @@ public class Actor {
         this.direction = direction;
     }
 
+    /**
+     * @param x The X position of the Actor
+     * @param y The Y position of the Actor
+     * Sets the Actor's location
+     */
     public void setLocation(int x, int y){
         this.x = x;
         this.y = y;

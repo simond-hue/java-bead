@@ -19,6 +19,10 @@ public class Labyrinth {
         this.generateFields(String.format("./maps/map" + layer + ".txt"));
     }
 
+    /**
+     * Generates a new Labyrinth based on the layer
+     * @param filename the map file name
+     */
     public void generateFields(String filename){
         readFromFile(filename);
         int amount = Game.fieldAmount;
@@ -30,6 +34,10 @@ public class Labyrinth {
         }
     }
 
+    /**
+     * Reads the data from the map file
+     * @param filename the map file name
+     */
     private void readFromFile(String filename){
         this.map = new int[Game.fieldAmount][Game.fieldAmount];
         try (BufferedReader br = new BufferedReader(new FileReader(filename))){
@@ -49,6 +57,10 @@ public class Labyrinth {
         }
     }
 
+    /**
+     * Prints the actor on the desired field
+     * @param p the Actor to be printed
+     */
     public void printActor(Actor p){
         fields[p.getX()][p.getY()].addComponent(p.getUi());
     }
@@ -57,6 +69,10 @@ public class Labyrinth {
         return ui;
     }
 
+    /**
+     * Gets a random spawn location for the dragon to be spawned at (spawn is restricted to only paths and minimum distance to the player)
+     * @return the X and Y to spawn the dragon
+     */
     public int[] getRandomSpawnLocation(){
         Random r = new Random();
         ArrayList<Field> paths = this.filterPaths();
@@ -64,6 +80,10 @@ public class Labyrinth {
         return paths.get(randomIndex).getLocation();
     }
 
+    /**
+     * Filters all the paths from the Labyrinth
+     * @return List of paths
+     */
     public ArrayList<Field> filterPaths(){
         ArrayList<Field> paths = new ArrayList<Field>();
         for(int i = 0; i < Game.fieldAmount; i++){
@@ -76,6 +96,14 @@ public class Labyrinth {
         return paths;
     }
 
+    /**
+     * Gets the distance between two object in the Labyrinth
+     * @param fromX X position of the first Field
+     * @param fromY Y position of the first Field
+     * @param toX X position of the second Field
+     * @param toY Y position of the second Field
+     * @return the distance between two object
+     */
     public static double Distance(int fromX, int fromY, int toX, int toY){
         int xDistance = Math.abs(fromX-toX);
         int yDistance = Math.abs(fromY-toY);
@@ -83,14 +111,23 @@ public class Labyrinth {
         return distance;
     }
 
+    /**
+     * Returns the field at a specific location
+     * @param x X position of the Field
+     * @param y Y position of the Field
+     * @return the desired Field
+     * @throws IndexOutOfBoundsException
+     */
     public Field getFieldAt(int x, int y) throws IndexOutOfBoundsException{
         return this.fields[x][y];
     }
-    public void refresh(){
-        this.ui.validate();
-        this.ui.repaint();
-    }
 
+    /**
+     * Gets the possible directions to be moved to
+     * @param x X position of the current location
+     * @param y Y position of the current location
+     * @return list of possible Directions
+     */
     public ArrayList<Directions> getPossibleDirections(int x, int y) {
         ArrayList<Directions> directions = new ArrayList<Directions>();
         try {
@@ -117,6 +154,10 @@ public class Labyrinth {
         return directions;
     }
 
+    /**
+     * Sets the visibility of the player
+     * @param p player
+     */
     public void setVisibility(Player p){
         int x = p.getX();
         int y = p.getY();

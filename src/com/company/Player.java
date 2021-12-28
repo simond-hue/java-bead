@@ -6,6 +6,9 @@ public class Player extends Actor{
         this.ui = new PlayerPanel();
     }
 
+    /**
+     * Resets the player to the starting point
+     */
     public void reset(){
         this.x = Game.fieldAmount-1;
         this.y = 0;

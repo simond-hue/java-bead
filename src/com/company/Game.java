@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.Timer;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,11 +11,13 @@ public class Game {
     public static final int fieldAmount = 32;
     public static final int maxLayer = 9;
 
-    public static int dragonOpacity = 0;
+    public static int dragonOpacity;
     public static final int fieldOpacity = 255;
 
+    public static DBHelper database = new DBHelper();
+
     private Labyrinth labyrinth;
-    private int layer = 0;
+    public static int layer;
 
     private MovementActionListener playerAction;
     private DragonMovementListener dragonMovementListener;
@@ -29,6 +32,8 @@ public class Game {
     private boolean gameOver;
 
     public Game(GUI gui){
+        dragonOpacity = 0;
+        layer = 0;
         this.gui = gui;
         this.labyrinth = new Labyrinth(layer);
         this.player = new Player();
@@ -47,6 +52,9 @@ public class Game {
         dragonMovementTimer.start();
     }
 
+    /**
+     * Initializes the Dragon Actor
+     */
     public void initDragon(){
         int[] spawnLocation = labyrinth.getRandomSpawnLocation();
         int spawnX = spawnLocation[0];
@@ -58,15 +66,17 @@ public class Game {
         dragon.setDirection(directions.get(r.nextInt(directions.size())));
     }
 
+    /**
+     * Creates a new Labyrinth based on the current layer
+     */
     public void createNewFloor() {
         this.playerAction.setPaused(true);
         this.dragonMovementListener.setPaused(true);
         this.layer++;
         if(this.layer == this.maxLayer){
-            this.gui.showMessage("Gratulálok! Végigvitted a játékot!");
+            this.gui.openInsertWindow("Gratulálok! Végigvitted a játékot!");
             return;
         }
-        this.labyrinth.getUi().removeAll();
         this.player.reset();
         this.labyrinth = new Labyrinth(this.layer);
         this.initDragon();
@@ -80,6 +90,9 @@ public class Game {
         this.playerAction.setPaused(false);
     }
 
+    /**
+     * Checks if the player is dead
+     */
     public void checkForDeath(){
         double distance = Labyrinth.Distance(dragon.getX(),dragon.getY(),player.getX(),player.getY());
         System.out.println(distance);
@@ -87,7 +100,7 @@ public class Game {
             this.gameOver = true;
             this.playerAction.setPaused(true);
             this.dragonMovementListener.setPaused(true);
-            this.gui.showMessage("Meghaltál!");
+            this.gui.openInsertWindow("Meghaltál!");
         }
     }
 
